@@ -9,7 +9,7 @@ class EmailController extends Controller
 {
     private $email;
 
-    public __construct(Email $email) {
+    public function __construct(Email $email) {
         $this->email = $email;
     }
     /**

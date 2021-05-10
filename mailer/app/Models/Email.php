@@ -11,7 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 
 class Email extends Model
 {
-    private getMailerInstance() {
+    private function getMailerInstance() {
         
         $mail = new PHPMailer(true);
 
@@ -33,7 +33,7 @@ class Email extends Model
     }
 
     
-    public send() {
+    public function send() {
         
         $result = true;
 
@@ -43,24 +43,23 @@ class Email extends Model
         ];
 
         try {
-            
             foreach($destinations as $destination) {
                 $mail = $this->getMailerInstance();
                 $mail->addAddress($destination["emailAddrees"], $destination["name"]);     //Add a recipient
-            }
 
-            //Content
-            $mail->isHTML(true);                                  
-            $mail->Subject = 'Teste de robô!';
-            $mail->Body    = '<h1>Testando...</h1> <br/><br/><p>Foi <b>disparado</b> através de um script de envio agendado com sucesso!</p>';
-            $mail->AltBody = 'Testando...\n\nFoi disparado<através de um script de envio agendado com sucesso!';
-        
-            $result = $mail->send();
+                 //Content
+                $mail->isHTML(true);                                  
+                $mail->Subject = 'Teste de robô!';
+                $mail->Body    = '<h1>Testando...</h1> <br/><br/><p>Foi <b>disparado</b> através de um script de envio agendado com sucesso!</p>';
+                $mail->AltBody = 'Testando...\n\nFoi disparado<através de um script de envio agendado com sucesso!';
             
-            echo 'Message has been sent';
+                $result = $mail->send();
+            }
+           
+            echo 'Messages has been sent';
         } catch (Exception $e) {
             $result = false;
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            echo "Messages could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
 
         return $result;
